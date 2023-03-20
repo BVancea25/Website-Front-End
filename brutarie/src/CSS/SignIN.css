@@ -1,0 +1,29 @@
+.sign-background {
+  background-image: url("../../public/background2.jpg");
+  height: 1000px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 65%;
+  margin-top: 5%;
+  background-color: #63d471;
+  width: 15%;
+  border: 2px solid black;
+}
+
+.button {
+  margin-left: 30%;
+  margin-bottom: 5%;
+}
+
+.h1 {
+  position: absolute;
+  left: 22%;
+  top: 20%;
+  text-decoration: overline;
+}
