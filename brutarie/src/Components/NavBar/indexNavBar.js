@@ -7,15 +7,21 @@ import {
   NavBtn,
   NavBtnLink,
 } from "./NavBarElements";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
+  const { auth } = useAuth();
   return (
     <>
       <Nav>
         <Bars />
-
         <NavMenu>
-          <NavLink to="/produse">Produse</NavLink>
+          {auth.role === "admin" ? (
+            <NavLink to="/produseA">Produse</NavLink>
+          ) : (
+            <NavLink to="/produse">Produse</NavLink>
+          )}
+
           <NavLink to="/locatii">Locatii</NavLink>
         </NavMenu>
         <NavBtn>
