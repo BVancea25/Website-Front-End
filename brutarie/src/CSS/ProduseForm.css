@@ -1,0 +1,34 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 30%;
+  margin-top: 5%;
+
+  background-color: #63d471;
+  width: 35%;
+  border: 2px solid black;
+}
+
+.container {
+  display: flex;
+}
+
+.produse {
+  width: 65%;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.errmsg {
+  background-color: rgb(80, 15, 24);
+  color: rgb(253, 43, 43);
+  font-weight: bold;
+  padding: 0.5rem;
+
+  margin-bottom: 0.5rem;
+  margin-top: 2%;
+}

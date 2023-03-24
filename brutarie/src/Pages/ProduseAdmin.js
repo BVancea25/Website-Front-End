@@ -5,11 +5,14 @@ import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import "../CSS/ProduseForm.css";
 
 const ProduseAdmin = () => {
   const [Setproduse, setData] = useState();
   const { auth } = useAuth();
-  const [msg, setMsg] = useState();
+  // const [msg, setMsg] = useState();
+  // const msgRef = useRef();
+
   const [formData, setFormData] = useState({
     nume: "",
     gramaj: "",
@@ -30,11 +33,12 @@ const ProduseAdmin = () => {
       .catch((error) => {
         console.error(error);
       });
+    //setMsg("");
   }, [Setproduse, auth.accessToken]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name + " " + value);
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -55,11 +59,20 @@ const ProduseAdmin = () => {
 
     const { nume, gramaj, pret, descriere } = formData;
 
+    setFormData({
+      nume: "",
+      gramaj: "",
+      pret: "",
+      descriere: "",
+    });
+
     data.append("nume", nume);
     data.append("gramaj", gramaj);
     data.append("pret", pret);
     data.append("descriere", descriere);
     data.append("image", imageData);
+
+    setImage("");
 
     await axios
       .post("/produse", data, {
@@ -67,11 +80,13 @@ const ProduseAdmin = () => {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then(setMsg("Produsul a fost adaugat !"))
+      .then((res) => {
+        console.log(res);
+      })
       .catch((error) => {
         console.log(error);
-        setMsg("Eroare !!!");
       });
+    // msgRef.current.focus();
   };
 
   const produse = Setproduse.map((produs) => {
@@ -89,12 +104,17 @@ const ProduseAdmin = () => {
   });
 
   return (
-    <div>
-      {produse}
+    <div className="container">
+      <div className="produse">{produse}</div>
 
-      <div>
+      <div className="form">
+        {/* <p
+          ref={msgRef}
+          className={msg ? "errmsg" : "offscreen"}
+          aria-live="assertive"
+        ></p> */}
         <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formNume">
+          <Form.Group className="mb3" controlId="formNume">
             <Form.Label>Nume produs:</Form.Label>
             <Form.Control
               name="nume"
@@ -105,7 +125,7 @@ const ProduseAdmin = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formGramaj">
+          <Form.Group className="mb3" controlId="formGramaj">
             <Form.Label>Gramaj:</Form.Label>
             <Form.Control
               name="gramaj"
@@ -116,7 +136,7 @@ const ProduseAdmin = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formPret">
+          <Form.Group className="mb3" controlId="formPret">
             <Form.Label>Pret:</Form.Label>
             <Form.Control
               name="pret"
@@ -127,7 +147,7 @@ const ProduseAdmin = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formDescriere">
+          <Form.Group className="mb3" controlId="formDescriere">
             <Form.Label>Descriere:</Form.Label>
             <Form.Control
               name="descriere"
@@ -139,17 +159,18 @@ const ProduseAdmin = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formImage">
+          <Form.Group className="mb3" controlId="formImage">
             <Form.Label>Imagine</Form.Label>
             <Form.Control
-              value={formData.image}
               onChange={handleImageChange}
               type="file"
               label="Alege o imagine jpg"
               accept="image/jpeg"
             />
           </Form.Group>
-          <Button type="submit">Submit</Button>
+          <Button className="button" variant="secondary" type="submit">
+            Adauga produs
+          </Button>
         </Form>
       </div>
     </div>

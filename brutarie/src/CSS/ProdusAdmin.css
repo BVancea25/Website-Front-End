@@ -5,8 +5,8 @@
 }
 
 .produs-container {
-  margin-left: 15%;
-  margin-right: 40%;
+  margin-left: 0%;
+  margin-right: 0%;
   display: flex;
   align-items: center;
 }
@@ -22,4 +22,9 @@
 .produs-info {
   display: flex;
   flex-direction: column;
+}
+
+.button {
+  margin-left: 30%;
+  margin-top: 5%;
 }

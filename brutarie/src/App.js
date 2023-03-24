@@ -20,9 +20,9 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" exact element={<Home />} />
+        <Route path="/locatii" element={<Locatii />} />
 
         <Route element={<RequireAuth allowedRole="admin" />}>
-          <Route path="/locatii" element={<Locatii />} />
           <Route path="/produseA" element={<ProduseAdmin />} />
         </Route>
       </Routes>
