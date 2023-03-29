@@ -8,9 +8,27 @@ import {
   NavBtnLink,
 } from "./NavBarElements";
 import useAuth from "../../hooks/useAuth";
+import Logout from "../../hooks/Logout";
+import { useState } from "react";
 
 const Navbar = () => {
   const { auth } = useAuth();
+  //const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const logout = async () => {
+    try {
+      await Logout();
+      //setIsLoggedIn(false);
+      console.log("false");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // if (auth?.email !== "" && !isLoggedIn) {
+  //   setIsLoggedIn(true);
+  //   console.log("true");
+  // }
   return (
     <>
       <Nav>
@@ -24,10 +42,18 @@ const Navbar = () => {
 
           <NavLink to="/locatii">Locatii</NavLink>
         </NavMenu>
-        <NavBtn>
-          <NavBtnLink to="/signin">Sign In</NavBtnLink>
-          <NavBtnLink to="/login">Log In</NavBtnLink>
-        </NavBtn>
+
+        {auth?.email ? (
+          <NavBtn>
+            <Logout />
+          </NavBtn>
+        ) : (
+          <NavBtn>
+            <NavBtnLink to="/signin">Sign In</NavBtnLink>
+
+            <NavBtnLink to="/login">Log In</NavBtnLink>
+          </NavBtn>
+        )}
       </Nav>
     </>
   );

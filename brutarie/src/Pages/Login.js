@@ -43,6 +43,7 @@ const Login = () => {
         const role = res.data.role;
 
         setAuth({ email, password, role, accessToken });
+        console.log(email);
         navigate(from, { replace: true });
       })
       .catch((err) => {
