@@ -1,20 +1,19 @@
 import React from "react";
 import ProdusAdmin from "./ProdusAdmin";
-import axios from "axios";
+
 import authApi from "../hooks/axiosTest";
-import Neautorizat from "./Neautorizat";
+
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import useRefreshToken from "../hooks/useRefreshToken";
+
 import "../CSS/ProduseForm.css";
 
 const ProduseAdmin = () => {
   const [Setproduse, setData] = useState();
   const { auth } = useAuth();
-  const [status, setStatus] = useState();
-  const refresh = useRefreshToken();
+
   // const [msg, setMsg] = useState();
   // const msgRef = useRef();
 
@@ -34,8 +33,6 @@ const ProduseAdmin = () => {
       })
       .then((res) => {
         setData(res.data);
-
-        setStatus(res.status);
       })
       .catch((error) => {
         console.error(error);
@@ -57,10 +54,6 @@ const ProduseAdmin = () => {
 
   if (Setproduse === undefined) {
     return <div>Loading...</div>;
-  }
-
-  if (status === 403) {
-    return <Neautorizat />;
   }
 
   const handleSubmit = async (event) => {

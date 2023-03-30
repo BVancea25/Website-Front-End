@@ -25,7 +25,7 @@ const useAxiosPrivate = () => {
       }
     );
   }, [auth, refresh]);
-
+  
   return axiosPrivate;
 };
 
