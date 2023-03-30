@@ -8,27 +8,11 @@ import {
   NavBtnLink,
 } from "./NavBarElements";
 import useAuth from "../../hooks/useAuth";
-import Logout from "../../hooks/Logout";
-import { useState } from "react";
+import Logout from "../../Pages/Logout";
 
 const Navbar = () => {
   const { auth } = useAuth();
-  //const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const logout = async () => {
-    try {
-      await Logout();
-      //setIsLoggedIn(false);
-      console.log("false");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // if (auth?.email !== "" && !isLoggedIn) {
-  //   setIsLoggedIn(true);
-  //   console.log("true");
-  // }
   return (
     <>
       <Nav>
@@ -41,6 +25,7 @@ const Navbar = () => {
           )}
 
           <NavLink to="/locatii">Locatii</NavLink>
+          <NavLink to="/neautorizat">Neautorizat</NavLink>
         </NavMenu>
 
         {auth?.email ? (

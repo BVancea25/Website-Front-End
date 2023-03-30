@@ -10,6 +10,7 @@ import Login from "./Pages/Login";
 import RequireAuth from "./Components/RequireAuth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ProduseAdmin from "./Pages/ProduseAdmin";
+import Neautorizat from "./Pages/Neautorizat";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/" exact element={<Home />} />
         <Route path="/locatii" element={<Locatii />} />
+        <Route path="/neautorizat" element={<Neautorizat />} />
 
         <Route element={<RequireAuth allowedRole="admin" />}>
           <Route path="/produseA" element={<ProduseAdmin />} />

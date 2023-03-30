@@ -1,5 +1,6 @@
 import axios from "axios";
-import useAuth from "./useAuth";
+import authApi from "../hooks/axiosTest";
+import useAuth from "../hooks/useAuth";
 import { NavBtnLink } from "../Components/NavBar/NavBarElements";
 const Logout = () => {
   const { setAuth } = useAuth();
@@ -8,8 +9,8 @@ const Logout = () => {
     accessToken = "",
     role = "";
   const handleLogout = () => {
-    axios
-      .post("/logout", { withCredentials: true })
+    authApi
+      .post("/logout")
       .then((res) => {
         console.log(res);
         setAuth({ email, password, accessToken, role });

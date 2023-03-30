@@ -1,15 +1,20 @@
 import React from "react";
 import ProdusAdmin from "./ProdusAdmin";
 import axios from "axios";
+import authApi from "../hooks/axiosTest";
+import Neautorizat from "./Neautorizat";
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import useRefreshToken from "../hooks/useRefreshToken";
 import "../CSS/ProduseForm.css";
 
 const ProduseAdmin = () => {
   const [Setproduse, setData] = useState();
   const { auth } = useAuth();
+  const [status, setStatus] = useState();
+  const refresh = useRefreshToken();
   // const [msg, setMsg] = useState();
   // const msgRef = useRef();
 
@@ -23,18 +28,19 @@ const ProduseAdmin = () => {
   const [imageData, setImage] = useState("");
 
   useEffect(() => {
-    axios
+    authApi
       .get("/produseAdmin", {
         headers: { Authorization: "Bearer " + auth.accessToken },
       })
       .then((res) => {
         setData(res.data);
+
+        setStatus(res.status);
       })
       .catch((error) => {
         console.error(error);
       });
-    //setMsg("");
-  }, [Setproduse, auth.accessToken]);
+  }, [auth.accessToken]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -51,6 +57,10 @@ const ProduseAdmin = () => {
 
   if (Setproduse === undefined) {
     return <div>Loading...</div>;
+  }
+
+  if (status === 403) {
+    return <Neautorizat />;
   }
 
   const handleSubmit = async (event) => {
@@ -74,7 +84,7 @@ const ProduseAdmin = () => {
 
     setImage("");
 
-    await axios
+    await authApi
       .post("/produse", data, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -82,11 +92,20 @@ const ProduseAdmin = () => {
       })
       .then((res) => {
         console.log(res);
+        authApi
+          .get("/produseAdmin", {
+            headers: { Authorization: "Bearer " + auth.accessToken },
+          })
+          .then((res) => {
+            setData(res.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       })
       .catch((error) => {
         console.log(error);
       });
-    // msgRef.current.focus();
   };
 
   const produse = Setproduse.map((produs) => {
@@ -108,11 +127,6 @@ const ProduseAdmin = () => {
       <div className="produse">{produse}</div>
 
       <div className="form">
-        {/* <p
-          ref={msgRef}
-          className={msg ? "errmsg" : "offscreen"}
-          aria-live="assertive"
-        ></p> */}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb3" controlId="formNume">
             <Form.Label>Nume produs:</Form.Label>

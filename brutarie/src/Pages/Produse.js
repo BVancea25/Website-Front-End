@@ -15,7 +15,7 @@ const Produse = () => {
       .catch((error) => {
         console.error(error);
       });
-  });
+  }, []);
 
   if (Setproduse === undefined) {
     return <div>Loading...</div>;
