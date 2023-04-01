@@ -25,7 +25,6 @@ const Navbar = () => {
           )}
 
           <NavLink to="/locatii">Locatii</NavLink>
-          <NavLink to="/neautorizat">Neautorizat</NavLink>
         </NavMenu>
 
         {auth?.email ? (

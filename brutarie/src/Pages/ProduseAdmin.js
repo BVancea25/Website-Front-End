@@ -5,10 +5,14 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../CSS/ProduseForm.css";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ProduseAdmin = () => {
   const [Setproduse, setData] = useState();
   const axiosPrivate = useAxiosPrivate();
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [formData, setFormData] = useState({
     nume: "",
@@ -27,6 +31,7 @@ const ProduseAdmin = () => {
       })
       .catch((error) => {
         console.error(error);
+        navigate("/login", { state: { from: location }, replace: true });
       });
   }, [axiosPrivate]);
 

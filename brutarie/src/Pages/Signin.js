@@ -4,6 +4,7 @@ import "../CSS/SignIN.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,8 @@ const Signin = () => {
     re_enter: "",
     refreshToken: "",
   });
+
+  const navigate = useNavigate();
 
   const [response, setResponse] = useState(null);
 
@@ -42,7 +45,7 @@ const Signin = () => {
     await (response !== null);
     //console.log(response.status);
     if (response.status === 201) {
-      return (window.location.href = "http://localhost:3000/login");
+      navigate("/login", { replace: true });
     }
   };
 

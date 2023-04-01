@@ -49,7 +49,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/" exact element={<Home />} />
           <Route path="/locatii" element={<Locatii />} />
-          <Route path="/neautorizat" element={<Neautorizat />} />
 
           <Route element={<RequireAuth allowedRole="admin" />}>
             <Route path="/produseA" element={<ProduseAdmin />} />
