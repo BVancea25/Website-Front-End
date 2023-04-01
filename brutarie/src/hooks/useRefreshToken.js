@@ -1,12 +1,11 @@
 import useAuth from "./useAuth";
-import authApi from "./axiosTest";
-
+import axiosCustom from "../api/axiosCookie";
 
 const useRefreshToken = () => {
   const { setAuth } = useAuth();
 
   const refresh = async () => {
-    const response = await authApi.get("/refresh");
+    const response = await axiosCustom.get("/refresh");
 
     setAuth((prev) => {
       console.log(JSON.stringify(prev));

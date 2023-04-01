@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import { useRef, useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
+import axiosCustom from "../api/axiosCookie";
 
 const Login = () => {
   const { setAuth } = useAuth(); //daca logarea se face cu succes, vom salva stateul de autentificare in contextul global
@@ -36,8 +36,8 @@ const Login = () => {
     setEmail("");
     setPassword("");
 
-    await axios
-      .post("http://localhost:3500/login", { email, password })
+    await axiosCustom
+      .post("/login", { email, password })
       .then((res) => {
         const accessToken = res.data.accessToken;
         const role = res.data.role;

@@ -1,15 +1,16 @@
-
-import authApi from "../hooks/axiosTest";
 import useAuth from "../hooks/useAuth";
+import axiosCustom from "../api/axiosCookie";
 import { NavBtnLink } from "../Components/NavBar/NavBarElements";
+
 const Logout = () => {
   const { setAuth } = useAuth();
+
   var email = "",
     password = "",
     accessToken = "",
     role = "";
   const handleLogout = () => {
-    authApi
+    axiosCustom
       .post("/logout")
       .then((res) => {
         console.log(res);

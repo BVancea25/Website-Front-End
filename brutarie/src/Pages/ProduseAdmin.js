@@ -1,21 +1,14 @@
 import React from "react";
 import ProdusAdmin from "./ProdusAdmin";
-
-import authApi from "../hooks/axiosTest";
-
+import useAxiosPrivate from "../hooks/axiosPrivate";
 import { useEffect, useState } from "react";
-import useAuth from "../hooks/useAuth";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
 import "../CSS/ProduseForm.css";
 
 const ProduseAdmin = () => {
   const [Setproduse, setData] = useState();
-  const { auth } = useAuth();
-
-  // const [msg, setMsg] = useState();
-  // const msgRef = useRef();
+  const axiosPrivate = useAxiosPrivate();
 
   const [formData, setFormData] = useState({
     nume: "",
@@ -27,17 +20,15 @@ const ProduseAdmin = () => {
   const [imageData, setImage] = useState("");
 
   useEffect(() => {
-    authApi
-      .get("/produseAdmin", {
-        headers: { Authorization: "Bearer " + auth.accessToken },
-      })
+    axiosPrivate
+      .get("/produseAdmin")
       .then((res) => {
         setData(res.data);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, [auth.accessToken]);
+  }, [axiosPrivate]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -77,7 +68,7 @@ const ProduseAdmin = () => {
 
     setImage("");
 
-    await authApi
+    await axiosPrivate
       .post("/produse", data, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -85,10 +76,9 @@ const ProduseAdmin = () => {
       })
       .then((res) => {
         console.log(res);
-        authApi
-          .get("/produseAdmin", {
-            headers: { Authorization: "Bearer " + auth.accessToken },
-          })
+
+        axiosPrivate
+          .get("/produseAdmin")
           .then((res) => {
             setData(res.data);
           })
