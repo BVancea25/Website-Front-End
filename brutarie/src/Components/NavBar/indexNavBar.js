@@ -17,15 +17,18 @@ const Navbar = () => {
     <>
       <Nav>
         <Bars />
-        <NavMenu>
-          {auth.role === "admin" ? (
-            <NavLink to="/produseA">Produse</NavLink>
-          ) : (
-            <NavLink to="/produse">Produse</NavLink>
-          )}
 
-          <NavLink to="/locatii">Locatii</NavLink>
-        </NavMenu>
+        {auth.role === "admin" ? (
+          <NavMenu>
+            <NavLink to="/locatiiA">Locatii</NavLink>
+            <NavLink to="/produseA">Produse</NavLink>
+          </NavMenu>
+        ) : (
+          <NavMenu>
+            <NavLink to="/produse">Produse</NavLink>
+            <NavLink to="/locatii">Locatii</NavLink>
+          </NavMenu>
+        )}
 
         {auth?.email ? (
           <NavBtn>

@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import Locatie from "./Pages/Locatie";
 import { useLoadScript } from "@react-google-maps/api";
 import GOOGLE_API_KEY from "./Variables";
+import LocatieAdmin from "./Pages/LocatieAdmin";
 
 function App() {
   const [showAbout, setShowAbout] = useState(false);
@@ -54,6 +55,7 @@ function App() {
 
           <Route element={<RequireAuth allowedRole="admin" />}>
             <Route path="/produseA" element={<ProduseAdmin />} />
+            <Route path="/locatiiA" element={<LocatieAdmin />} />
           </Route>
         </Routes>
         <div id="about" className="about">
