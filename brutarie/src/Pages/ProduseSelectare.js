@@ -1,38 +1,42 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Button from "react-bootstrap/esm/Button";
 
 const ProduseSelectare = (props) => {
-  // const [products, setProducts] = useState([]);
+  const [orderProducts, setProducts] = useState([]);
 
-  const handleQuantityChange = (productId, name, quantity) => {
-    const updatedProducts = props.products.map((produs) => {
-      if (produs._id === productId) {
-        return {
-          id: productId,
-          name: name,
-          quantity: quantity,
-        };
-      }
-      //return produs;
-    });
-    //setProducts(updatedProducts);
-    props.onProductsChange(updatedProducts);
+  const handleQuantityChange = (productId, productName, quantity) => {
+    const index = orderProducts.findIndex(
+      (produs) => produs.productId === productId
+    );
+
+    if (index === -1) {
+      const newProduct = {
+        productId: productId,
+        productName: productName,
+        quantity: quantity,
+      };
+      setProducts([...orderProducts, newProduct]);
+      console.log(orderProducts);
+    } else {
+      const updatedProducts = [...orderProducts];
+
+      updatedProducts[index] = {
+        ...updatedProducts[index],
+        quantity: quantity,
+      };
+      setProducts(updatedProducts);
+    }
   };
 
   const produse = props.products.map((produs) => {
-    // const product = props.products.find((p) => p.id === produs._id) || {
-    //   id: produs._id,
-    //   name: produs.nume,
-    //   quantity: 0,
-    // };
     return (
       <div key={produs._id}>
         <h2>{produs.nume}</h2>
         <h1>{produs.pret}</h1>
         <input
           type="number"
-          min="0"
-          value={produs.quantity}
+          defaultValue={0}
           onChange={(e) =>
             handleQuantityChange(produs._id, produs.nume, e.target.value)
           }
@@ -41,7 +45,19 @@ const ProduseSelectare = (props) => {
     );
   });
 
-  return <div>{produse}</div>;
+  return (
+    <div>
+      {produse}
+      <Button
+        onClick={() => {
+          props.onReturnToOrder();
+          props.onProductsChange(orderProducts);
+        }}
+      >
+        Reveniti la comanda
+      </Button>
+    </div>
+  );
 };
 
 export default ProduseSelectare;

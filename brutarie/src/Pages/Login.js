@@ -41,9 +41,10 @@ const Login = () => {
       .then((res) => {
         const accessToken = res.data.accessToken;
         const role = res.data.role;
+        const id = res.data.id;
 
-        setAuth({ email, password, role, accessToken });
-        console.log(email);
+        setAuth({ id, role, accessToken });
+
         navigate(from, { replace: true });
       })
       .catch((err) => {
