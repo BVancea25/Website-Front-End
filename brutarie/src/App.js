@@ -17,6 +17,7 @@ import { useLoadScript } from "@react-google-maps/api";
 import GOOGLE_API_KEY from "./Variables";
 import LocatieAdmin from "./Pages/LocatieAdmin";
 import Comanda from "./Pages/Comanda";
+import ComenziAdmin from "./Pages/ComenziAdmin";
 
 function App() {
   const [showAbout, setShowAbout] = useState(false);
@@ -57,9 +58,10 @@ function App() {
           <Route element={<RequireAuth allowedRole="admin" />}>
             <Route path="/produseA" element={<ProduseAdmin />} />
             <Route path="/locatiiA" element={<LocatieAdmin />} />
+            <Route path="/comandaA" element={<ComenziAdmin />} />
           </Route>
           <Route element={<RequireAuth allowedRole="user" />}>
-            <Route path="comanda" element={<Comanda />} />
+            <Route path="/comanda" element={<Comanda />} />
           </Route>
         </Routes>
         <div id="about" className="about">
