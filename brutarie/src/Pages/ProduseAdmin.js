@@ -99,6 +99,7 @@ const ProduseAdmin = () => {
   const produse = Setproduse.map((produs) => {
     return (
       <ProdusAdmin
+        key={produs._id}
         id={produs._id}
         nume={produs.nume}
         descriere={produs.descriere}
